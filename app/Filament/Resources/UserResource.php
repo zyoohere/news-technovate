@@ -6,11 +6,11 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Builder;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Support\Enums\FontWeight;
 
 class UserResource extends Resource
 {
@@ -33,7 +33,14 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required(),
-                    
+                Forms\Components\Select::make('role')
+                    ->options([
+                        'admin' => 'Admin',
+                        'author' => 'Author',
+                        'user' => 'User',
+                    ])
+                    ->required(),
+
             ]);
     }
 
@@ -41,22 +48,37 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->sortable()
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('nama')
+                    ->weight(FontWeight::Bold)
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->searchable(),
+                Tables\Columns\Layout\Panel::make([
+                    Tables\Columns\Layout\Split::make([
+                        // Tables\Columns\ImageColumn::make('avatar')
+                        //     ->circular(),
+                        Tables\Columns\Layout\Stack::make([
+                            Tables\Columns\TextColumn::make('email')
+                                ->sortable()
+                                ->icon('heroicon-m-envelope')
+                                ->searchable(),
+                            Tables\Columns\TextColumn::make('role')
+                                ->sortable()
+                                ->searchable(),
+                        ]),
+                        Tables\Columns\TextColumn::make('created_at')
+                            ->dateTime()
+                            ->searchable(),
+                    ])->from('md'),
+                ])->collapsed(false)
+
+
             ])
+             ->contentGrid([
+            'md' => 2,
+            'xl' => 2,
+        ])
             ->filters([
-                //
+                // 
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -81,8 +103,8 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            // 'create' => Pages\CreateUser::route('/create'),
+            // 'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }

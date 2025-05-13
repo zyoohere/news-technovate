@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
- 
+
     protected $fillable = [
         'user_id',
         'category_id',
@@ -16,20 +16,20 @@ class Article extends Model
         'status', // draft, published
         'published_at',
         'content',
-        
+
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-    
-    
-    public function author()
+
+
+    public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
-    
+
     public function category()
     {
         return $this->belongsTo(Category::class);

@@ -25,9 +25,9 @@ class User extends Authenticatable
         'bio',
         'role', // admin, author, user
         'status', // active, inactive
-        
+
     ];
-    
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -64,7 +64,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-   public function getIsAdminAttribute(): bool
+    public function getIsAdminAttribute(): bool
     {
         return $this->role === 'admin';
     }
@@ -86,6 +86,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
-
-
 }
