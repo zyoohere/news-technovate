@@ -4,7 +4,6 @@ export default function Header({ title, categories }) {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
 
-  // Group categories by parent_id
   const groupedCategories = categories.reduce((acc, category) => {
     if (!category.parent_id) {
       acc[category.id] = { ...category, subcategories: [] };

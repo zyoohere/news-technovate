@@ -4,145 +4,146 @@ import Navbar from "@/Components/Navbar";
 import Footer from "@/Layouts/Footer";
 import VideoHighlight from "@/Components/VideoHighlight";
 
-export default function Home({ title, categories }) {
+export default function Home({ title, categories, articles, videos }) {
   return (
     <>
       <Head title="Home" />
-      <div>
-      </div>
       <Navbar title={title} categories={categories} />
 
-      {/* Section Trending & Popular */}
-      <section className="container mx-auto px-4 py-6">
-        <h3 className="text-lg font-semibold">Popular</h3>
+      {/* Hero Section */}
+      <section className="bg-gray-100 py-12">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-3xl font-bold mb-4">Welcome to Technovate News</h1>
+          <p className="text-gray-600">Stay updated with the latest trends in technology, economy, and more.</p>
+        </div>
+      </section>
+
+      {/* Popular Articles */}
+      <section className="container mx-auto px-4 py-8">
+        <h3 className="text-2xl font-semibold mb-6">Popular Articles</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Trending Article */}
-          <div className="md:col-span-2 border rounded-lg overflow-hidden shadow-sm">
-
-            <img
-              src="\images\News (1).jpg"
-              alt="TikTok"
-              className="w-full h-64 object-cover"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-bold">
-                TikTok Sumber Berita Favorit Bagi Generasi Z
-              </h2>
-              <p className="text-sm text-gray-700 mt-2">
-                Menurut Luc Cain, Pendiri Charlesbye Strategy and Research Interactive, Generasi Z mendapatkan berita dari sumber yang terfragmentasi dan seringkali kurang dapat dipercaya...
-              </p>
+          {articles.slice(0, 1).map((articles) => (
+            <div key={articles.id} className="md:col-span-2 border rounded-lg overflow-hidden shadow-lg">
+              <img
+                src={`http://localhost:8000/storage/${articles.thumbnail}`}
+                alt={articles.title}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-4">
+                <h2 className="text-xl font-bold mb-2">{articles.title}</h2>
+                <div className="prose max-w-none text-gray-700">
+                  <div dangerouslySetInnerHTML={{ __html: articles.content }} />
+                </div>
+              </div>
             </div>
-          </div>
-
-          {/* Popular Sidebar */}
+          ))}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Popular</h3>
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="flex gap-3 items-start border p-2 rounded hover:bg-gray-50 transition">
+            <h3 className="text-2xl font-semibold">Popular Articles</h3>
+            {articles.slice(0, 3).map((articles) => (
+              <div
+                key={articles.id}
+                className="flex gap-4 items-start border p-4 rounded-lg hover:bg-gray-50 transition"
+              >
                 <img
-                  src="\images\News (2).jpg"
-                  alt="Popular Article"
-                  className="w-16 h-16 object-cover rounded"
+                  src={`http://localhost:8000/storage/${articles.thumbnail}`}
+                  alt={articles.title}
+                  className="w-20 h-20 object-cover rounded"
                 />
-                <p className="text-sm font-medium">
-                  {item === 1 && "Musim 2025 mencakup 21 seri balapan di berbagai negara."}
-                  {item === 2 && "Jadwal Timnas Indonesia Vs China pada Kualifikasi Piala Dunia 2026: Duel Hidup-Mati"}
-                  {item === 3 && "Emas Cetak Rekor Tertinggi: Sinyal Krisis atau Peluang Investasi?"}
-                </p>
+                <div>
+                  <h4 className="font-bold text-lg">{articles.title}</h4>
+                  <p className="text-sm text-gray-500">{articles.user?.nama}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Video */}
-      <VideoHighlight />
+      {/* Video Highlight */}
+      {/* <VideoHighlight videos={videos} /> */}
 
-      {/* Card Horizontal */}
-      <div className="mx-auto max-w-md overflow-hidden rounded-xl bg-white shadow-md md:max-w-2xl">
-        <div className="md:flex">
-          <div className="md:shrink-0">
-            <img
-              className="h-48 w-full object-cover md:h-full md:w-48"
-              src="/example.jpg"
-              alt="Modern building architecture"
-            />
-          </div>
-          <div className="p-8">
-            <div className="text-sm font-semibold tracking-wide text-indigo-500 uppercase">Company retreats</div>
-            <a href="#" className="mt-1 block text-lg leading-tight font-medium text-black hover:underline">
-              Incredible accommodation for your team
-            </a>
-            <p className="mt-2 text-gray-500">
-              Looking to take your team away on a retreat to enjoy awesome food and take in some sunshine? We have a list of
-              places to do just that.
-            </p>
-          </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {videos.map(videos => (
+          <VideoHighlight key={videos.id} videos={videos} />
+        ))}
+      </div>
+      {/* Featured Card */}
+      <div className="mx-auto max-w-4xl overflow-hidden rounded-xl bg-white shadow-md md:flex my-8">
+        <img
+          className="h-48 w-full object-cover md:h-auto md:w-48"
+          src="/example.jpg"
+          alt="Modern building architecture"
+        />
+        <div className="p-8">
+          <h3 className="text-indigo-500 text-sm font-semibold uppercase">Company Retreats</h3>
+          <a href="#" className="block mt-2 text-lg font-medium text-black hover:underline">
+            Incredible accommodation for your team
+          </a>
+          <p className="mt-2 text-gray-600">
+            Looking to take your team away on a retreat to enjoy awesome food and take in some sunshine? We have a list of
+            places to do just that.
+          </p>
         </div>
       </div>
 
-      {/* Category Section */}
-      <div className="container mx-auto px-4 py-8">
-        <h2 className="text-lg font-bold mb-4 text-center">Category</h2>
-        <div className="grid md:grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Teknologi Masa Kini */}
+      {/* Categories */}
+      <section className="container mx-auto px-4 py-8">
+        <h2 className="text-2xl font-bold mb-6 text-center">Explore Categories</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <CategoryCard
             title="Teknologi Masa Kini"
             image="\images\News (5).jpg"
             text="Teknologi berkembang pesat..."
             tags={["#Tech", "#Teknologi"]}
           />
-
-          {/* Masa Depan Ekonomi */}
           <CategoryCard
             title="Masa Depan Ekonomi"
             image="\images\News (4).jpg"
             text="Ekonomi dunia kini berada di tengah perubahan besar..."
-            tags={["#economy", "#saham"]}
+            tags={["#Economy", "#Saham"]}
           />
-
-          {/* Empat Pemain Cedera */}
           <CategoryCard
             title="Empat Pemain Cedera"
             image="\images\News (6).jpg"
             text="Timnas Indonesia menghadapi sejumlah tantangan..."
-            tags={["#football"]}
+            tags={["#Football"]}
           />
-
-          {/* Percaya Diri */}
           <CategoryCard
             title="Percaya Diri, Kunci Sukses"
             image="\images\News (8).jpg"
             text="Artikel ini membahas pentingnya self confidence..."
-            tags={["#health", "#confidence"]}
+            tags={["#Health", "#Confidence"]}
           />
         </div>
-      </div>
+      </section>
 
-      {/* Section Grid Teknologi */}
-      <section className="text-center px-4 mb-10">
-        <h3 className="font-semibold mb-3">Teknologi Masa Kini</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[
-            { img: "\images\News (2).jpg", text: "Teknologi berkembang pesat...", tags: ["#Tech", "#Teknologi"] },
-            { img: "\images\News (10).jpg", text: "AI dan otomatisasi kini menjadi bagian dari kehidupan...", tags: ["#AI", "#Automation"] },
-            { img: "\images\News (5).jpg", text: "Pengaruh teknologi terhadap pendidikan modern...", tags: ["#EdTech"] },
-            { img: "\images\News (6).jpg", text: "Gadget masa kini semakin terintegrasi dengan AI...", tags: ["#Gadget", "#SmartTech"] }
-          ].map((card, i) => (
-            <div key={i} className="border rounded-lg p-4 shadow hover:shadow-lg transition">
-              <img src={card.img} className="w-full h-40 object-cover rounded mb-3" alt="" />
-              <p className="text-sm text-gray-600">{card.text}</p>
-              <div className="mt-2 text-xs text-teal-600 space-x-2">
-                {card.tags.map((tag, j) => <span key={j}>{tag}</span>)}
+      {/* Technology Highlights */}
+      <section className="bg-gray-50 py-10">
+        <div className="container mx-auto px-4 text-center">
+          <h3 className="text-2xl font-semibold mb-6">Teknologi Masa Kini</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { img: "\images\News (2).jpg", text: "Teknologi berkembang pesat...", tags: ["#Tech", "#Teknologi"] },
+              { img: "\images\News (10).jpg", text: "AI dan otomatisasi kini menjadi bagian dari kehidupan...", tags: ["#AI", "#Automation"] },
+              { img: "\images\News (5).jpg", text: "Pengaruh teknologi terhadap pendidikan modern...", tags: ["#EdTech"] },
+              { img: "\images\News (6).jpg", text: "Gadget masa kini semakin terintegrasi dengan AI...", tags: ["#Gadget", "#SmartTech"] },
+            ].map((card, i) => (
+              <div key={i} className="border rounded-lg p-4 shadow hover:shadow-lg transition">
+                <img src={card.img} className="w-full h-40 object-cover rounded mb-3" alt="" />
+                <p className="text-sm text-gray-600">{card.text}</p>
+                <div className="mt-2 text-xs text-teal-600 space-x-2">
+                  {card.tags.map((tag, j) => (
+                    <span key={j}>{tag}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Footer */}
       <Footer />
-     
     </>
   );
 }

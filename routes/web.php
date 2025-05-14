@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -14,13 +14,8 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
-Route::get('/', [CategoryController::class, 'index']);
-// Route::get('/', function(){
-//     return Inertia::render('Home',[
-//         'title' => 'Technovate',
-//         'Nama' => 'TEknologi'
-//     ]);
-// });
+Route::get('/', [HomeController::class, 'index']);
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

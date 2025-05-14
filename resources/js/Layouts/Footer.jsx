@@ -4,8 +4,6 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 border-t border-gray-700 text-sm text-white">
       <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-4 gap-8">
-
-        {/* Brand / Description */}
         <div>
              <div className="flex items-center">
           <img
@@ -35,8 +33,6 @@ const Footer = () => {
             <button type="button" className="bg-gray-700 hover:bg-gray-600 text-white text-sm px-3 py-1">Subscribe</button>
           </div>
         </div>
-
-        {/* Company */}
         <div>
           <h3 className="font-semibold mb-2 text-white">Company</h3>
           <ul className="space-y-1 text-gray-400">
@@ -45,8 +41,6 @@ const Footer = () => {
             <li><a href="#">Careers</a></li>
           </ul>
         </div>
-
-        {/* Social Media */}
         <div>
           <h3 className="font-semibold mb-2 text-white">Social Media</h3>
           <ul className="space-y-1 text-gray-400">
@@ -56,8 +50,6 @@ const Footer = () => {
             <li><a href="#">Facebook</a></li>
           </ul>
         </div>
-
-        {/* Contact */}
         <div>
           <h3 className="font-semibold mb-2 text-white">Contact us</h3>
           <ul className="space-y-1 text-gray-400">
@@ -67,7 +59,6 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-
       <div className="border-t border-gray-700 py-3 px-4 text-xs flex flex-col md:flex-row justify-between max-w-7xl mx-auto text-gray-400">
         <div className="flex space-x-4 mb-2 md:mb-0">
           <a href="#" className="hover:underline">Syarat & Ketentuan</a>

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category; // Pastikan model di-import
+use App\Models\Category;
+use App\Models\Article;
+use App\Models\Media;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class CategoryController extends Controller
+class HomeController extends Controller
 {
     /**
     *
@@ -15,10 +17,14 @@ class CategoryController extends Controller
     public function index()
     {
         
+        $articles = Article::with(['user'])->get(); 
+        $videos = Media::latest()->get();
         $categories = Category::all();
         return Inertia::render('Home', [
             'title' => 'Technovate',
+            'articles' => $articles,
             'categories' => $categories,
+            'videos'=> $videos,
         ]);
 
     }

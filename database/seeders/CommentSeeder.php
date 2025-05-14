@@ -33,18 +33,5 @@ class CommentSeeder extends Seeder
                 ]);
             }
         }
-        // Check if there are any articles and users
-
-
-
-        // foreach ($articles as $article) {
-        //     for ($i = 0; $i < rand(1, 5); $i++) {
-        //         Comment::create([
-        //             'article_id' => $article->id,
-        //             'user_id' => $users->random()->id,
-        //             'content' => $faker->paragraph(),
-        //         ]);
-        //     }
-        // }
     }
 }

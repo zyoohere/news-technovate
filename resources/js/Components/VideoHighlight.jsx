@@ -1,32 +1,41 @@
 import React from 'react';
 
-const videoData = [
-  {
-    id: 1,
-    title: "Video 1",
-    desc: "Deskripsi singkat video 1.",
-    thumbnail: "/videos/thumb1.jpg",
-  },
-  {
-    id: 2,
-    title: "Video 2",
-    desc: "Deskripsi singkat video 2.",
-    thumbnail: "/videos/thumb2.jpg",
-  },
-  {
-    id: 3,
-    title: "Video 3",
-    desc: "Deskripsi singkat video 3.",
-    thumbnail: "/videos/thumb3.jpg",
-  },
-];
 
-const VideoHighlight = () => {
+export default function VideoHighlight({ videos }) {
+  const getYouTubeEmbed = (url) => {
+    const regExp = /(?:youtube\.com.*(?:\\?|&)v=|youtu\.be\/)([^&#]*)/;
+    const match = url.match(regExp);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : '';
+  };
+
   return (
     <section className="container mx-auto px-4 py-8">
-      <h2 className="text-xl font-bold mb-6 border-b pb-2">🎬 Video Highlight</h2>
+      <h2 className="text-xl font-bold mb-6 border-b pb-2">Video Hightlighy</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {videoData.map((video) => (
+
+          {videos.type === 'upload' ? (
+        <video controls   key={videos.id}
+            className="border rounded-lg overflow-hidden shadow hover:shadow-md transition">
+          <source src={`/storage/videos/${videos.video_path}`} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      ) : (
+        <iframe
+          className="w-full aspect-video rounded h-48 object-cover"
+          src={getYouTubeEmbed(videos.video_url)}
+          title={videos.title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      )}
+          <p className="mt-1 text-sm text-gray-600">{videos.description}</p>
+        
+        
+        
+        
+        
+        {/* {videoData.map((video) => (
           <div
             key={video.id}
             className="border rounded-lg overflow-hidden shadow hover:shadow-md transition"
@@ -41,10 +50,9 @@ const VideoHighlight = () => {
               <p className="text-sm text-gray-600 mt-1">{video.desc}</p>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
     </section>
   );
-};
+}
 
-export default VideoHighlight;
